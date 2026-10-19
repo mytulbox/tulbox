@@ -123,3 +123,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   .links{display:none}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bar i{transition:none}}
+
+/* tier toggle */
+.tierbar{display:flex;border:1px solid var(--clay)}
+.tierbar button{all:unset;box-sizing:border-box;cursor:pointer;font-family:var(--mono);font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;padding:12px 20px;color:var(--sand)}
+.tierbar button+button{border-left:1px solid var(--clay)}
+.tierbar button:hover{background:var(--soil)}
+.tierbar button[aria-pressed="true"]{background:var(--red);color:var(--bone)}
+.tierbar button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.kit{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--clay);margin:-12px 0 20px}
