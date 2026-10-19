@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TULBOX</title>
+<meta name="description" content="Garage and home gym workouts for busy parents and professionals. A new plan every Monday.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top">TUL<span>BOX</span></a>
+    <div class="links">
+      <a href="#workouts">This week</a>
+      <a href="#gear">Build your box</a>
+      <a href="#journal">Journal</a>
+    </div>
+    <a class="btn" href="#join">Get Monday's workout</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap grid">
+    <div>
+      <div class="eyebrow">Garage and home gym training</div>
+      <h1 style="margin-top:14px">Train hard.<br>Live <em>fully.</em></h1>
+      <p class="lead">One new workout plan every Monday. Built for parents and professionals who have 30 minutes, a garage, and a few pieces of iron.</p>
+      <div class="cta">
+        <a class="btn" href="#workouts">See this week's plan</a>
+        <a class="btn ghost" href="#gear">Start with what you own</a>
+      </div>
+    </div>
+    <aside class="spec" aria-label="How a week works">
+      <div class="eyebrow">Spec sheet</div>
+      <dl>
+        <dt>Cadence</dt><dd>4 sessions, 1 optional finisher</dd>
+        <dt>Time cap</dt><dd>30 minutes, warm-up included</dd>
+        <dt>Floor space</dt><dd>One parking bay</dd>
+        <dt>Minimum kit</dt><dd>Dumbbells, a band, a floor</dd>
+        <dt>Posted</dt><dd>Mondays, 5:00 AM</dd>
+      </dl>
+    </aside>
+  </div>
+</header>
+
+<section id="workouts">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow" id="weekLabel">Week plan</div>
+        <h2>This week's work</h2>
+        <p>Pick a day. Tick it off when you finish. Progress saves in your browser.</p>
+      </div>
+    </div>
+    <div class="board">
+      <div class="days" role="tablist" aria-label="Workout days" id="days"></div>
+      <div class="panel" id="panel" role="tabpanel"></div>
+    </div>
+  </div>
+</section>
+
+<section id="gear">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow">Equipment tiers</div>
+        <h2>Build your box</h2>
+        <p>Every workout lists a swap for each tier. Start where you are and add one tool at a time.</p>
+      </div>
+    </div>
+    <div class="tiers">
+      <article class="tier">
+        <div class="eyebrow">Tier 1</div>
+        <h3>Bare floor</h3>
+        <div class="price">Under $150</div>
+        <ul><li>Adjustable dumbbells</li><li>Resistance band set</li><li>Doorway pull-up bar</li></ul>
+      </article>
+      <article class="tier feat">
+        <div class="eyebrow">Tier 2 · Most popular</div>
+        <h3>Garage standard</h3>
+        <div class="price">$600 – $1,200</div>
+        <ul><li>Barbell and plates, 300 lb set</li><li>Adjustable bench</li><li>Kettlebells, 35 and 53 lb</li><li>Rubber stall mats</li></ul>
+      </article>
+      <article class="tier">
+        <div class="eyebrow">Tier 3</div>
+        <h3>Full rack</h3>
+        <div class="price">$2,000 and up</div>
+        <ul><li>Power rack with safeties</li><li>Cable or landmine attachment</li><li>Sled or prowler</li><li>Fan and a speaker</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="journal">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow">Journal</div>
+        <h2>From the shop floor</h2>
+        <p>Short reads on training, time, and keeping a family and a career moving.</p>
+      </div>
+      <a class="btn ghost" href="#journal">All posts</a>
+    </div>
+    <div class="posts" id="posts"></div>
+  </div>
+</section>
+
+<section class="signup" id="join">
+  <div class="wrap grid">
+    <div>
+      <div class="eyebrow">Free, weekly</div>
+      <h2>The plan lands every Monday</h2>
+    </div>
+    <form id="form">
+      <input type="email" id="email" placeholder="you@email.com" aria-label="Email address" required>
+      <button class="btn" type="submit">Send it</button>
+      <div class="msg" id="msg" role="status"></div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap"><span>TULBOX © 2026</span><span>Work in the garage. Be home for dinner.</span></div>
+</footer>
+<script src="content/week.js"></script>
+<script src="content/posts.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
