@@ -9,7 +9,7 @@ var TIERS = {
    - moves:[...]                   (one list shared by both setups)  */
 var WEEK_LABEL = 'Week 43 · Oct 19 – 25';
 var WEEK = [
-  {day:'Mon', name:'Push and carry', focus:'Upper push', mins:30,
+  {day:'Mon', name:'Push and carry', focus:'Upper push', mins:60,
    note:'Heavy press first while you are fresh, then a carry finisher to burn out the grip and core.',
    garage:[
     ['Barbell overhead press','Standing, ribs down','5 × 5'],
