@@ -1,53 +1,64 @@
-/* EDIT HERE: the setups people can choose between.
-   With one setup the toggle is hidden. To bring the toggle back, add a second entry, e.g.
-   floor: {label:'Bare floor', kit:'Dumbbells, a band, a pull-up bar, a floor'} */
-var TIERS = {
-  garage: {label:'Garage', kit:'Dumbbells, kettlebells, barbell, a pull-up bar, a floor'}
-};
-/* EDIT HERE: this week's workouts.
-   Each day has either:
-   - floor:[...] and garage:[...]  (a different list for each setup), or
-   - moves:[...]                   (one list shared by both setups)
-   Each move is ['Exercise', 'Instructions', 'Sets x Reps'].
-   Spell check before committing. */
-var WEEK_LABEL = 'Week 46 · Nov 9 – 15';
-var WEEK = [
-  {day:'Mon', name:'Push and Plank', focus:'Upper push', mins:35,
-   note:'Press, plank, and chest work, then a three-minute burpee finisher. Controlled reps.',
-   moves:[
-    ['L-sit dumbbell press','Sit on the floor. Back straight. Slow and controlled press.','3 × 12'],
-    ['Mountain climbers + plank','Every climber = 1 rep. Plank for 15 seconds before the next set.','3 × 30'],
-    ['Dumbbell chest fly','Lie on the floor or a bench. Open the chest slowly. Power back to the start and squeeze the chest for 3 seconds.','3 × 10'],
-    ['Close-grip push','Close-grip bench press or diamond push-ups.','3 × 10'],
-    ['Finisher: SEAL burpees','Substitute regular burpees if needed. For time.','3 min']]},
-  {day:'Tue', name:'Earthquake', focus:'Heavy pull', mins:40,
-   note:'Heavy pulling and grip work, finished with a hard conditioning blast.',
-   moves:[
-    ['Kettlebell swings','Use a heavier bell or 2 bells if needed. 5 rounds.','30 sec work / 30 sec rest'],
-    ['Boot worm + pull-up','1 boot worm followed by 1 pull-up.','5 × 10'],
-    ['Rows','Barbell, dumbbells, or kettlebells. Moderate weight.','5 × 8'],
-    ['Heavy farmer carry','Switch to a heavy suitcase carry if you are limited on space.','60 ft / 30 sec rest'],
-    ['Finisher: Battle ropes or ring row jumps','Ring row jumps: start squatted, then row or pull up into an explosive jump. Repeat. Go hard.','3 min']]},
-  {day:'Wed', name:'Walk and Roll', focus:'Recover', mins:30,
-   note:'Sleep in a little longer, then be intentional about getting more steps through the day. An evening walk, stretching, or foam rolling all count.',
-   moves:[
-    ['Steps','Spread them through the day. An evening walk counts.','All day'],
-    ['Warm up and stretch','Easy and unhurried.','10 min'],
-    ['Foam roll','Slow passes. Pause on tight spots.','10 min']]},
-  {day:'Thu', name:'Full Metal Legs', focus:'Legs', mins:40,
-   note:'Leg day. Slow, heavy, and honest.',
-   moves:[
-    ['Kettlebell walking lunges','Moderate weight. Alternating steps. 1 step = 1 rep.','3 × 20'],
-    ['Goblet squats','Slow down. Slow up. Do not lock out. Keep moving.','3 × 10'],
-    ['Squats','Barbell. Light to medium. 3 seconds down. Pause, then slowly return to the start.','3 × 10'],
-    ['Bulgarian split squats','Slow and heavy.','5 × 5'],
-    ['Finisher: Burpees','Rest is authorized in the plank position.','5 min']]},
-  {day:'Fri', name:'Chalk Outline', focus:'Full body', mins:35,
-   note:'Full body to close the week. Finish with easy Zone 2 work.',
-   moves:[
-    ['Kettlebell swings','Moderate weight.','3 × 25'],
-    ['Dumbbell lying chest press','On your back on the floor. Press the weight up from the chest. Keep elbows close to your body.','3 × 25'],
-    ['Lying leg lifts','Switch to leg tucks if needed.','5 × 20'],
-    ['Thrusters + boot worms + plank','5 reps each + 20-second plank.','5 rounds'],
-    ['Finisher: Zone 2 cardio','Your choice of cardio.','5 min']]}
-];
+var KEY = 'tulbox-' + WEEK_LABEL;
+var done = {}, sel = 0, tier = 'garage';
+try { done = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+try { var t = localStorage.getItem('tulbox-tier'); if (TIERS[t]) tier = t; } catch (e) {}
+if (!TIERS[tier]) tier = Object.keys(TIERS)[0];
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {} }
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function multiTier(){ return Object.keys(TIERS).length > 1; }
+
+function renderTier(){
+  var bar = document.getElementById('tierbar');
+  /* Toggle only shows when TIERS has more than one setup. */
+  bar.style.display = multiTier() ? '' : 'none';
+  bar.innerHTML = multiTier() ? Object.keys(TIERS).map(function(k){
+    return '<button type="button" data-t="'+k+'" aria-pressed="'+(k===tier)+'">'+esc(TIERS[k].label)+'</button>';
+  }).join('') : '';
+  document.getElementById('kit').textContent = 'You need: ' + TIERS[tier].kit;
+}
+
+function render(){
+  document.getElementById('weekLabel').textContent = WEEK_LABEL;
+  document.getElementById('days').innerHTML = WEEK.map(function(w,i){
+    return '<button class="day'+(done[i]?' done':'')+'" role="tab" id="tab'+i+'" aria-selected="'+(i===sel)+'" data-i="'+i+'">'+
+      '<span><b>'+esc(w.day)+'</b><small>'+esc(w.focus)+'</small></span><span class="tick"></span></button>';
+  }).join('');
+  var w = WEEK[sel];
+  var moves = w[tier] || w.moves || [];
+  var count = Object.keys(done).filter(function(k){return done[k];}).length;
+  document.getElementById('panel').setAttribute('aria-labelledby','tab'+sel);
+  document.getElementById('panel').innerHTML =
+    '<header><h3>'+esc(w.name)+'</h3><div class="meta"><span class="chip hot">'+w.mins+' min</span>'+(multiTier() ? '<span class="chip">'+esc(TIERS[tier].label)+'</span>' : '')+'<span class="chip">'+esc(w.focus)+'</span></div></header>'+
+    '<p class="note">'+esc(w.note)+'</p>'+
+    '<ol class="moves">'+moves.map(function(m,j){
+      return '<li><span class="n">'+String(j+1).padStart(2,'0')+'</span><div class="m">'+esc(m[0])+'<span>'+esc(m[1])+'</span></div><span class="rx">'+esc(m[2])+'</span></li>';
+    }).join('')+'</ol>'+
+    '<div class="foot"><button class="btn'+(done[sel]?' ghost':'')+'" id="mark">'+(done[sel]?'Undo':'Mark done')+'</button>'+
+    '<div class="week"><span>'+count+' of '+WEEK.length+' done</span><div class="bar"><i style="width:'+(count/WEEK.length*100)+'%"></i></div></div></div>';
+}
+document.getElementById('tierbar').addEventListener('click', function(e){
+  var b = e.target.closest('button'); if(!b) return;
+  tier = b.dataset.t;
+  try { localStorage.setItem('tulbox-tier', tier); } catch (err) {}
+  renderTier(); render();
+});
+document.getElementById('days').addEventListener('click', function(e){
+  var b = e.target.closest('.day'); if(!b) return;
+  sel = +b.dataset.i; render(); document.getElementById('tab'+sel).focus();
+});
+document.getElementById('panel').addEventListener('click', function(e){
+  if(e.target.id === 'mark'){ done[sel] = !done[sel]; save(); render(); document.getElementById('mark').focus(); }
+});
+
+document.getElementById('posts').innerHTML = POSTS.map(function(p){
+  return '<a class="post" href="#journal"><div class="thumb" data-label="'+esc(p.art)+'"></div>'+
+    '<div class="eyebrow"><span>'+esc(p.tag)+'</span><span>'+esc(p.date)+'</span></div>'+
+    '<h3>'+esc(p.title)+'</h3><p>'+esc(p.text)+'</p></a>';
+}).join('');
+
+document.getElementById('form').addEventListener('submit', function(e){
+  e.preventDefault();
+  document.getElementById('msg').textContent = 'Template only. Connect an email service to collect signups.';
+});
+renderTier();
+render();
