@@ -1,60 +1,53 @@
-/* EDIT HERE: the two setups people can choose between */
+/* EDIT HERE: the setups people can choose between.
+   With one setup the toggle is hidden. To bring the toggle back, add a second entry, e.g.
+   floor: {label:'Bare floor', kit:'Dumbbells, a band, a pull-up bar, a floor'} */
 var TIERS = {
-  floor:  {label:'Bare floor', kit:'Dumbbells, a band, a pull-up bar, a floor'},
-  garage: {label:'Garage',     kit:'Barbell, plates, bench, kettlebells'}
+  garage: {label:'Garage', kit:'Dumbbells, kettlebells, barbell, a pull-up bar, a floor'}
 };
 /* EDIT HERE: this week's workouts.
    Each day has either:
    - floor:[...] and garage:[...]  (a different list for each setup), or
-   - moves:[...]                   (one list shared by both setups)  */
-var WEEK_LABEL = 'Week 43 · Oct 19 – 25';
+   - moves:[...]                   (one list shared by both setups)
+   Each move is ['Exercise', 'Instructions', 'Sets x Reps'].
+   Spell check before committing. */
+var WEEK_LABEL = 'Week 46 · Nov 9 – 15';
 var WEEK = [
-  {day:'Mon', name:'Push and carry', focus:'Upper push', mins:30,
-   note:'Heavy press first while you are fresh, then a carry finisher to burn out the grip and core.',
-   garage:[
-    ['Barbell overhead press','Standing, ribs down','5 × 5'],
-    ['Floor press','Barbell or dumbbells','4 × 8'],
-    ['Single-arm kettlebell row','Brace on the bench','3 × 10/side'],
-    ['Farmer carry','Walk the driveway. Heavy.','4 × 40 yd']],
-   floor:[
-    ['Dumbbell overhead press','Standing, ribs down','4 × 8'],
-    ['Push-up','Add a band across the back when it gets easy','4 × AMRAP'],
-    ['Single-arm dumbbell row','Hand on a chair or bench','3 × 10/side'],
-    ['Suitcase carry','Dumbbell in one hand, walk the driveway','4 × 40 yd']]},
-  {day:'Tue', name:'Engine 20', focus:'Conditioning', mins:20,
-   note:'Short and mean. Hold a pace you can repeat for the full 20 minutes.',
-   garage:[
-    ['Kettlebell swing','Hips snap, arms hang','15 reps'],
-    ['Goblet squat','Kettlebell at the chest','10 reps'],
-    ['Burpee','It is a burpee.','5 reps'],
-    ['Repeat as many rounds as possible','Log your round count','20 min']],
-   floor:[
-    ['Dumbbell swing','Both hands on one dumbbell','15 reps'],
-    ['Dumbbell goblet squat','Dumbbell at the chest','10 reps'],
-    ['Burpee','It is a burpee.','5 reps'],
-    ['Repeat as many rounds as possible','Log your round count','20 min']]},
-  {day:'Wed', name:'Rest and mobilize', focus:'Recovery', mins:15,
-   note:'Walk with the family, then 15 minutes on hips, thoracic spine and shoulders.',
+  {day:'Mon', name:'Push and Plank', focus:'Upper push', mins:35,
+   note:'Press, plank, and chest work, then a three-minute burpee finisher. Controlled reps.',
    moves:[
-    ['90/90 hip switches','Slow, controlled','2 × 8/side'],
-    ['Thoracic rotations','Open book on the floor','2 × 10/side'],
-    ['Dead hang','Doorway bar or rack','3 × 30 sec']]},
-  {day:'Thu', name:'Squat and pull', focus:'Lower and back', mins:35,
-   note:'The heaviest day of the week. Leave one rep in reserve on every set.',
-   garage:[
-    ['Back squat','Below parallel','5 × 5'],
-    ['Romanian deadlift','Barbell, flat back','4 × 8'],
-    ['Pull-up or inverted row','Add weight when you hit 4 × 8','4 × AMRAP'],
-    ['Plank, weighted','Plate on the back','3 × 45 sec']],
-   floor:[
-    ['Dumbbell goblet squat','Slow lower, 3 seconds down','4 × 10'],
-    ['Dumbbell Romanian deadlift','Flat back, soft knees','4 × 10'],
-    ['Pull-up or band row','Doorway bar, or band around a sturdy post','4 × AMRAP'],
-    ['Plank','Backpack on the back to add load','3 × 45 sec']]},
-  {day:'Fri', name:'Finisher', focus:'Optional', mins:15,
-   note:'Skip it if the week got away from you. Do it if you have gas left.',
+    ['L-sit dumbbell press','Sit on the floor. Back straight. Slow and controlled press.','3 × 12'],
+    ['Mountain climbers + plank','Every climber = 1 rep. Plank for 15 seconds before the next set.','3 × 30'],
+    ['Dumbbell chest fly','Lie on the floor or a bench. Open the chest slowly. Power back to the start and squeeze the chest for 3 seconds.','3 × 10'],
+    ['Close-grip push','Close-grip bench press or diamond push-ups.','3 × 10'],
+    ['Finisher: SEAL burpees','Substitute regular burpees if needed. For time.','3 min']]},
+  {day:'Tue', name:'Earthquake', focus:'Heavy pull', mins:40,
+   note:'Heavy pulling and grip work, finished with a hard conditioning blast.',
    moves:[
-    ['Band pull-apart','Light and crisp','3 × 20'],
-    ['Dumbbell thruster','Backpack or sandbag works too','3 × 12'],
-    ['Sit-up','Anchor feet under the couch','3 × 15']]}
+    ['Kettlebell swings','Use a heavier bell or 2 bells if needed. 5 rounds.','30 sec work / 30 sec rest'],
+    ['Boot worm + pull-up','1 boot worm followed by 1 pull-up.','5 × 10'],
+    ['Rows','Barbell, dumbbells, or kettlebells. Moderate weight.','5 × 8'],
+    ['Heavy farmer carry','Switch to a heavy suitcase carry if you are limited on space.','60 ft / 30 sec rest'],
+    ['Finisher: Battle ropes or ring row jumps','Ring row jumps: start squatted, then row or pull up into an explosive jump. Repeat. Go hard.','3 min']]},
+  {day:'Wed', name:'Walk and Roll', focus:'Recover', mins:30,
+   note:'Sleep in a little longer, then be intentional about getting more steps through the day. An evening walk, stretching, or foam rolling all count.',
+   moves:[
+    ['Steps','Spread them through the day. An evening walk counts.','All day'],
+    ['Warm up and stretch','Easy and unhurried.','10 min'],
+    ['Foam roll','Slow passes. Pause on tight spots.','10 min']]},
+  {day:'Thu', name:'Full Metal Legs', focus:'Legs', mins:40,
+   note:'Leg day. Slow, heavy, and honest.',
+   moves:[
+    ['Kettlebell walking lunges','Moderate weight. Alternating steps. 1 step = 1 rep.','3 × 20'],
+    ['Goblet squats','Slow down. Slow up. Do not lock out. Keep moving.','3 × 10'],
+    ['Squats','Barbell. Light to medium. 3 seconds down. Pause, then slowly return to the start.','3 × 10'],
+    ['Bulgarian split squats','Slow and heavy.','5 × 5'],
+    ['Finisher: Burpees','Rest is authorized in the plank position.','5 min']]},
+  {day:'Fri', name:'Chalk Outline', focus:'Full body', mins:35,
+   note:'Full body to close the week. Finish with easy Zone 2 work.',
+   moves:[
+    ['Kettlebell swings','Moderate weight.','3 × 25'],
+    ['Dumbbell lying chest press','On your back on the floor. Press the weight up from the chest. Keep elbows close to your body.','3 × 25'],
+    ['Lying leg lifts','Switch to leg tucks if needed.','5 × 20'],
+    ['Thrusters + boot worms + plank','5 reps each + 20-second plank.','5 rounds'],
+    ['Finisher: Zone 2 cardio','Your choice of cardio.','5 min']]}
 ];
